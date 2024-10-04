@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture from Camera</title>
+    <style>
+        body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200vh;
+  margin: 0;
+background: linear-gradient(90deg, rgba(20,2,12,1) 13%, rgba(30,22,75,1) 39%, rgba(50,94,153,1) 65%, rgba(22,60,106,1) 100%);  
+}
+
+        #container {
+   background: linear-gradient(120deg,  rgba(22,60,106,1) 15%,rgba(20,2,12,1) 35% , rgba(30,22,75,1) 65%,rgba(50,94,153,1) 100%);
+  text-align: center;
+  border: 3px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  width: 700px; /* Set a fixed width for the container */
+}
+
+       #video, #canvas {
+  margin-bottom: 10px;
+}
+
+        #snap {
+ background: linear-gradient(120deg,  rgba(22,60,106,1) 13%,rgba(20,2,12,1) 39% , rgba(30,22,75,1) 65%,rgba(50,94,153,1) 100%);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#snap:hover {
+  background-color: #45A049; /* Darker green on hover */
+}
+h1{
+  text-align: center;  /* Center the heading */
+  margin-bottom: 20px;  /* Add some space below the heading */
+  color:white;
+}
+
+
+    </style>
+</head>
+<body>
+    <div id="container">
+     <h1 >Capture from Camera</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="snap">Snap Photo</button><br><br>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const snapButton = document.getElementById('snap');
+
+        // Get access to the camera
+        async function initCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+            }
+        }
+
+        // Draw image from camera on canvas
+        function drawImage() {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }
+
+        // Capture photo from camera
+        snapButton.addEventListener('click', () => {
+            drawImage();
+            // Convert canvas content to base64 data URL
+            const imageData = canvas.toDataURL('image/jpeg');
+            // Send image data to server for processing
+            fetch('/process_image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ image: imageData })
+            })
+            .then(response => response.text())
+            .then(resultImagePath => {
+                // Redirect to result page
+                window.location.href = '/result?image_path=' + resultImagePath;
+            })
+            .catch(error => {
+                console.error('Error processing image:', error);
+            });
+        });
+
+        // Initialize camera when the page is loaded
+        window.onload = () => {
+            initCamera();
+        };
+    </script>
+    <a href="/" style="position: relative;text-decoration-color:  white ; color: white;padding-left: 8%;"> Go back </a>
+    </div>
+</body>
+</html>

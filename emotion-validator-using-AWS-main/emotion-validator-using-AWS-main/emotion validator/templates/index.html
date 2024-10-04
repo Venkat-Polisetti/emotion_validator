@@ -1,0 +1,56 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <style>
+       h1{
+	color:whitesmoke;
+	font-size: 50px;
+	}
+        .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        text-align: center;
+        color: white; /* Ensure text is visible on top of the animated background */
+    }
+  body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        font-size:20px;
+        overflow: hidden; /* Prevent scrollbars caused by the background image */
+        background-image: url('https://www.womanthology.co.uk/wp-content/uploads/2017/06/facescan.gif');
+        background-size: cover; /* Adjusts the background image size to cover the entire viewport */
+        background-position: center; /* Centers the background image */
+        animation: backgroundAnimation 10s infinite; /* Apply animation to the background image */
+    }
+    @keyframes backgroundAnimation {
+        0% { background-position: 0% 0%; }
+        50% { background-position: 100% 100%; }
+        100% { background-position: 0% 0%; }
+    }
+    </style>
+   
+</head>
+<body>
+    <div class="container">
+        <h1><center>Welcome to Emotion Detection!</center></h1>
+        <h2>How would you like to provide the image?</h2>
+        <form action="/choose_option" method="POST">
+            <label for="upload_option" class="radio-label">
+                <input type="radio" id="upload_option" name="option" value="upload">
+                Upload Image
+            </label>
+            <label for="camera_option" class="radio-label">
+                <input type="radio" id="camera_option" name="option" value="camera">
+                Take Photo
+            </label><br><br>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

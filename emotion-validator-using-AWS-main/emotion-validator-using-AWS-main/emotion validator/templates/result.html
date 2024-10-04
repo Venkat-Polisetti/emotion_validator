@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection Result</title>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+       body {
+  font-family: Arial, sans-serif; /* Basic font for the page */
+  margin: 0; /* Remove default margin */
+  background: linear-gradient(130deg,  rgba(22,60,106,1) 15%,rgba(20,2,12,1) 35% , rgba(30,22,75,1) 65%,rgba(50,94,153,1) 100%);
+}
+
+.container {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Center elements vertically */
+  align-items: center; /* Center elements horizontally */
+  width: 100%; /* Take up full width of the viewport */
+  min-height: 100vh; /* Set minimum height for full viewport height */
+  padding: 20px; /* Add some padding inside the container */
+     background: linear-gradient(130deg,  rgba(22,60,106,1) 15%,rgba(20,2,12,1) 35% , rgba(30,22,75,1) 65%,rgba(50,94,153,1) 100%);
+     color: white;
+
+}
+
+.container h1 {
+  margin-bottom: 20px; /* Add space below the heading */
+  font-size: 2em; /* Increase heading font size */
+  color:white;
+  
+}
+
+.result-image {
+  width: 50%; /* Set image width to half the container */
+  max-width: 500px; /* Set a maximum width for responsiveness */
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+.result-image img {
+  border-radius: 5px; /* Add rounded corners to the image */
+  color:white
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Emotion Detection Result</h1>
+        <div class="result-image">
+            <img src="{{ result_image }}" alt="Result Image">
+        </div>
+        <a href="/" style="color: white; text-decoration: none;">Go back </a>
+    </div>
+</body>
+</html>
